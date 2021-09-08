@@ -55,7 +55,7 @@ def shopping():
     total = eval(total)
     for i in range(num):
         v, p, q = input().split(" ")
-        lis.append([eval(v), eval(p), eval(q)])
+        lis.append([eval(v), eval(p) * 100, eval(q)])
 
     print(lis)
     cost_performance = [0] * num
@@ -63,11 +63,12 @@ def shopping():
     for index, element in enumerate(lis):
         # 主件与附件
         if element[2] == 0:
-            cost_performance[index] = element[1] * element[0]
+            cost_performance[index] = round(element[1] / element[0], 2)
         else:
             # 记录一个附件带主件的性价比 以及 选定主件后额外增加一个附件的性价比
-            cost_performance[index] = element[1] * element[0] + lis[element[2] - 1][1] * lis[element[2] - 1][0]
-            cost_performance_extra[index] = element[1] * element[0]
+            cost_performance[index] = round(
+                (element[1] + lis[element[2] - 1][1]) / (element[0] + lis[element[2] - 1][0]), 2)
+            cost_performance_extra[index] = round(element[1] / element[0], 2)
 
     print(cost_performance)
     print(cost_performance_extra)
@@ -94,6 +95,7 @@ def shopping():
         if total - s >= 0:
             # 买得起, 扣除物品总价
             total = total - s
+            print(total)
             print(f"选中{m + 1}号物品！")
             # 索引 m 加入购物车, 更新待检索数组
             shopping_list.append(m)
@@ -110,7 +112,7 @@ def shopping():
                 index_to_update = []
                 for i, ele in enumerate(lis):
                     # 遍历, 检索主件是当前附件的主件的附件, 并且还未加入购物车的附件
-                    if ele[2] == lis[m][2] - 1 and i in index_to_check:
+                    if ele[2] == lis[m][2] and i in index_to_check:
                         index_to_update.append(i)
                 # 更新待更新的附件性价比
                 for j in index_to_update:
@@ -131,10 +133,13 @@ def shopping():
             print(m)
             index_to_check.remove(m)
     print(shopping_list)
+
     summary = 0
     for index_final in shopping_list:
         summary += lis[index_final][0] * lis[index_final][1]
     print(summary)
+    # 重选最后一个物品
+    shopping_list = shopping_list[:-1]
 
 
 shopping()
@@ -150,4 +155,20 @@ shopping()
 320 2 0
 410 3 0
 400 3 5
+"""
+
+
+
+"""
+2000 10
+500 1 0 1
+400 4 0 2
+300 5 1 3
+400 5 1 4
+200 5 0 5
+500 4 5 6
+400 4 0 7
+320 2 0 8
+410 3 0 9
+400 3 5 10
 """
