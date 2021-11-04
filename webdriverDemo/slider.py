@@ -15,6 +15,7 @@ import random
 url = 'https://passport.bilibili.com/login'
 browser = webdriver.Chrome()
 
+
 def compare_pixel(image1, image2, i, j):
     """
     判断两个像素是否相同
@@ -28,10 +29,12 @@ def compare_pixel(image1, image2, i, j):
     pixel2 = image2.load()[i, j]
     threshold = 60  # 设置一个比较基准
 
-    if abs(pixel1[0] - pixel2[0]) < threshold and abs(pixel1[1] - pixel2[1]) < threshold and abs(pixel1[2] - pixel2[2]) < threshold:
+    if abs(pixel1[0] - pixel2[0]) < threshold and abs(pixel1[1] - pixel2[1]) < threshold and abs(
+            pixel1[2] - pixel2[2]) < threshold:
         return True
     else:
         return False
+
 
 def update_style(display):
     """
@@ -42,17 +45,16 @@ def update_style(display):
     time.sleep(2)
 
 
-
 def crop_image(image_file_name):
-
     time.sleep(2)
-    #截取验证码图片
+    # 截取验证码图片
     img = browser.find_element_by_xpath("//*[@class='geetest_canvas_slice geetest_absolute']")
     location = img.location
     print("图片的位置", location)
     size = img.size
     print(size)
-    top, button, left, right = location['y'], location['y'] + size['height'], location['x'], location['x'] + size['width']
+    top, button, left, right = location['y'], location['y'] + size['height'], location['x'], location['x'] + size[
+        'width']
     print("验证码位置", left, top, right, button)
     # 截图为png格式
     screenshot = browser.get_screenshot_as_png()
@@ -60,10 +62,9 @@ def crop_image(image_file_name):
     screenshot = Image.open(BytesIO(screenshot))
     # 截取图片
     captcha = screenshot.crop((int(left), int(top), int(right), int(button)))
-    #保存
+    # 保存
     captcha.save(image_file_name)
     return captcha
-
 
 
 def login():
@@ -143,7 +144,7 @@ def login():
     #     track.append(round(move))
     #
     # 点击拖动按钮
-    track = [round(0.6 * left), round(0.3 * left), round(0.1 *left)]
+    track = [round(0.6 * left), round(0.3 * left), round(0.1 * left)]
     print(track)
     ActionChains(browser).click_and_hold(slider).perform()
     for x in track:
@@ -153,6 +154,7 @@ def login():
     # 松开按钮
     ActionChains(browser).release().perform()
     time.sleep(10)
+
 
 login()
 time.sleep(10)
