@@ -23,8 +23,8 @@ for card_li in card_lists:
     video_name = card_li.xpath('./@title')[0]
     video_page = page_url + card_li.xpath('./a[@class="card-item-link"]/@href')[0]
     video_dict = {
-        'video_name':video_name,
-        'video_page':video_page
+        'video_name': video_name,
+        'video_page': video_page
     }
     video_lists.append(video_dict)
 
@@ -36,9 +36,9 @@ for content_div in content_lists:
         video_name = content_li.xpath('./@title')[0]
         video_page = page_url + content_li.xpath('./a[@class="card-item-link"]/@href')[0]
         video_dict = {
-                    'video_name': video_name,
-                    'video_page': video_page
-                }
+            'video_name': video_name,
+            'video_page': video_page
+        }
         video_lists.append(video_dict)
 
 print(video_lists)
