@@ -1,5 +1,9 @@
 import time
 
+"""
+斐波那契数列 拼接为字符串
+"""
+
 
 def fibonacci(n):
     if n == 1:
@@ -10,9 +14,11 @@ def fibonacci(n):
 
 
 start = time.time()
-s = fibonacci(5)
-print(s)
-c = s.count("10")
-print(c)
+fibonacci(35)
+# s = fibonacci(35)
+# print(s)
 end = time.time()
 print(f'用时{end - start}s')
+"""
+n = 35, 平均用时2.7s; Java中平均用时270ms
+"""
