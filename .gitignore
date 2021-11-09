@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .idea/
+mySpider/images/
+mySpider/scrapyDemo/product/images/
